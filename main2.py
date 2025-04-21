@@ -52,7 +52,6 @@ def main():
     iterasi = 200
     total_episode = -(-opt.Max_train_steps//iterasi)
     sepertiga_eps=total_episode//3
-
     
     # Seed Everything
     env_seed = opt.seed
@@ -90,7 +89,9 @@ def main():
     else:
         total_steps = 0
         lr_steps = 0
+        episode=0
         while total_steps < opt.Max_train_steps: # ini loop episode. Jadi total episode adalah Max_train_steps/200
+            episode+=1
             if lr_steps==sepertiga_eps :
                 opt.a_lr=0.3 * opt.a_lr
                 opt.c_lr=0.3 * opt.c_lr
@@ -117,7 +118,7 @@ def main():
                 writer.add_scalar("Total power", a[0]+a[1]+a[2]+a[3]+a[4], total_steps)
                 next_loc= env.generate_positions() #lokasi untuk s_t
                 next_channel_gain=env.generate_channel_gain(next_loc) #channel gain untuk s_t
-                s_next, r, dw, tr, info,EE,rate= env.step(a,channel_gain,next_channel_gain) # dw: dead&win; tr: truncated
+                s_next, r, dw, tr, info,EE,rate= env.step(a,channel_gain,next_channel_gain,episode) # dw: dead&win; tr: truncated
                 writer.add_scalar("Energi Efisiensi", EE, total_steps)
                 writer.add_scalar("Reward iterasi", r, total_steps)
                 writer.add_scalar("data rate 1", rate[0], total_steps)
@@ -129,6 +130,7 @@ def main():
                 channel_gain=env.generate_channel_gain(loc)
                 if langkah == iterasi :
                     tr= True
+                    lamda=lamda*gf
                    
                     
                 done = (dw or tr)
