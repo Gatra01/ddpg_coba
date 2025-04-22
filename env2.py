@@ -58,7 +58,7 @@ class GameState:
         power_constraint = total_daya-self.p_max
         for i in range(self.nodes):
             dr=data_rate[i]
-            if max(power_constraint,0)>self.efsilon or max(0.51-dr)>self.efsilon :
+            if max(power_constraint,0)>self.efsilon or max(0.51-dr,0)>self.efsilon :
                 convergence = False 
                 hasil= convergence and hasil
             else : 
