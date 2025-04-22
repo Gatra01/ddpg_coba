@@ -13,6 +13,9 @@ class GameState:
         self.observation_space = 2*nodes * nodes + nodes  # interferensi, channel gain, power
         self.action_space = nodes
         self.p = np.random.uniform(0, self.p_max, size=self.nodes)
+        self.lamda=1
+        self.gf=2
+        self.efsilon=10e-6
     def sample_valid_power(self):
         rand = np.random.rand(self.nodes)
         rand /= np.sum(rand)
@@ -41,23 +44,37 @@ class GameState:
         else :
             x=1
         return x
-    def step(self,power,channel_gain,next_channel_gain):
+    def step(self,power,channel_gain,next_channel_gain,episode):
+        x=1
         intr=self.interferensi(power,channel_gain)
+        convergence=True
+        hasil=True
         next_intr=self.interferensi(power,next_channel_gain)
         sinr=self.hitung_sinr(channel_gain,intr,power)
         data_rate=self.hitung_data_rate(sinr)
         data_rate_constraint=[]
         #intr_state=self.interferensi_state(new_intr)
-        for i in range(self.nodes):
-            data_rate_constraint.append(150*self.step_function(0.51-data_rate[i]))
-        EE=self.hitung_efisiensi_energi(power,data_rate)
         total_daya=np.sum(power)
+        power_constraint = total_daya-self.p_max
+        for i in range(self.nodes):
+            if max(power_constraint,0)>self.efsilon or max(0.51-data_rate[i])>self.efsilon :
+                convergence = False 
+                hasil= convergence and hasil
+            else : 
+                convergence = True
+                hasil = convergence and hasil
+        
+        if hasil==False and episode > x :
+            self.lamda= self.lamda * self.gf
+            x+=1
+        for i in range(self.nodes):
+            data_rate_constraint.append(self.lamda*max(0.51-data_rate[i],0)**2)
+        EE=self.hitung_efisiensi_energi(power,data_rate)
         gain_norm=self.norm(next_channel_gain)
         intr_norm = self.norm(next_intr)
         p_norm=self.norm(power)
         result_array = np.concatenate((np.array(gain_norm).flatten(), np.array(intr_norm).flatten(),np.array(p_norm)))
-        #fairness = np.var(new_data_rate)  # Variansi untuk mengukur kesenjangan data rate
-        reward = EE -  150*self.step_function(total_daya-self.p_max)-np.sum(data_rate_constraint)
+        reward = EE -  self.lamda*max(total_daya-self.p_max,0)**2-np.sum(data_rate_constraint)
         return result_array,reward, False,False,{},EE,data_rate
 
     def norm(self,x):
