@@ -130,9 +130,6 @@ def main():
                 channel_gain=env.generate_channel_gain(loc)
                 if langkah == iterasi :
                     tr= True
-                    lamda=lamda*gf
-                   
-                    
                 done = (dw or tr)
 
                 agent.replay_buffer.add(np.array(s, dtype=np.float32), a, r, np.array(s_next, dtype=np.float32), dw)
@@ -152,7 +149,7 @@ def main():
                 if total_steps % opt.eval_interval == 0:
                     state_eval,inf=eval_env.reset(channel_gain)
                     state_eval = np.array(state_eval, dtype=np.float32)
-                    ep_r = evaluate_policy(channel_gain,state_eval,eval_env, agent, turns=3)
+                    ep_r = evaluate_policy(channel_gain,state_eval,eval_env, agent, turns=3,episode)
                     if opt.write: 
                         writer.add_scalar('ep_r', ep_r, global_step=total_steps)
                         #writer.add_scalar("Loss/Actor", a_loss.item(), total_steps)
