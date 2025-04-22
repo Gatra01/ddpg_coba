@@ -13,6 +13,9 @@ class GameState:
         self.observation_space = 2*nodes * nodes + nodes  # interferensi, channel gain, power
         self.action_space = nodes
         self.p = np.random.uniform(0, self.p_max, size=self.nodes)
+        self.lamda=1
+        self.gf=2
+        self.efsilon=10e-6
     def sample_valid_power(self):
         rand = np.random.rand(self.nodes)
         rand /= np.sum(rand)
@@ -41,7 +44,7 @@ class GameState:
         else :
             x=1
         return x
-    def step(self,power,channel_gain,next_channel_gain):
+    def step(self,power,channel_gain,next_channel_gain,episode):
         x=1
         intr=self.interferensi(power,channel_gain)
         convergence=True
