@@ -69,7 +69,7 @@ def evaluate_policy(channel_gain,state, env, agent, turns = 3):
             total_scores += r
             state = s_next
             channel_gain=next_channel_gain
-    return int(total_scores/turns)
+    return (total_scores/turns)
 
 #Just ignore this function~
 def str2bool(v):
