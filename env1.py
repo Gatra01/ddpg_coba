@@ -61,6 +61,7 @@ class GameState:
         return result_array,reward, False,False,{},EE,data_rate
 
     def norm(self,x):
+        x = np.maximum(x, 1e-10)
         x_log = np.log10(x + 1e-10)  # +1e-10 untuk menghindari log(0)
         x_min = np.min(x_log)
         x_max = np.max(x_log)
