@@ -44,7 +44,7 @@ def evaluate_policy(channel_gain,state, env, agent, turns = 3):
     total_power = 0
     total_EE=0
    
-    for j in range(turns):
+    for j in range(3):
         #s, info = env.ini()
         done = False
         MAX_STEPS = 1  # Batas maksimum langkah per episode
