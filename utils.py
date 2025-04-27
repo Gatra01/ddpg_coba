@@ -50,6 +50,7 @@ def evaluate_policy(channel_gain,state, env, agent, turns = 3):
         MAX_STEPS = 1  # Batas maksimum langkah per episode
         step_count = 0
         a=np.zeros(5)
+        print(j)
         while not done:
             step_count += 1
             print(step_count)
