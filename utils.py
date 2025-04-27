@@ -52,6 +52,7 @@ def evaluate_policy(channel_gain,state, env, agent, turns = 3):
         a=np.zeros(5)
         while not done:
             step_count += 1
+            print(step_count)
             
             # Take deterministic actions at test time
             a = agent.select_action(state, deterministic=True) #aslinya True
