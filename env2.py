@@ -13,7 +13,7 @@ class GameState:
         self.observation_space = 2*nodes * nodes + nodes  # interferensi, channel gain, power
         self.action_space = nodes
         self.p = np.random.uniform(0, self.p_max, size=self.nodes)
-        self.lamda=0.1 #buat punishment reward data rate dan power
+        self.lamda=100 #buat punishment reward data rate dan power
         self.gf = 2 #buat growth factor
         self.efsilon=10e-6 # tolerance convergence
     def sample_valid_power(self):
@@ -45,6 +45,9 @@ class GameState:
             x=1
         return x
     def step(self,power,channel_gain,next_channel_gain,episode):
+        for i in range(len[power]):
+            if power[i]<10e-6:
+                power[i]=10e-6
         x=1
         intr=self.interferensi(power,channel_gain)
         convergence=True
@@ -54,6 +57,7 @@ class GameState:
         data_rate=self.hitung_data_rate(sinr)
         data_rate_constraint=[]
         #intr_state=self.interferensi_state(new_intr)
+        
         total_daya=np.sum(power)
         power_constraint = total_daya-self.p_max
         for i in range(self.nodes):
