@@ -83,7 +83,7 @@ class GameState:
         if reward > 0:
             reward = np.log2(reward)
         else:
-            reward = reward
+            reward = -10
         return result_array,reward, False,False,{},EE,data_rate
 
     def norm(self,x):
