@@ -71,7 +71,7 @@ def evaluate_policy(channel_gain,state, env, agent, episode):
             total_scores += r
             state = s_next
             channel_gain=next_channel_gain
-    return (total_scores/turns)
+    return (total_scores/3)
 
 #Just ignore this function~
 def str2bool(v):
