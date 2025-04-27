@@ -37,7 +37,7 @@ class Q_Critic(nn.Module):
         q = self.l3(q)
         return q
 
-def evaluate_policy(channel_gain,state, env, agent, turns = 3):
+def evaluate_policy(channel_gain,state, env, agent, episode):
     env = GameState(5,3)   
     total_scores = 0
     total_data_rate = 0
