@@ -16,6 +16,7 @@ class GameState:
         self.lamda=0.5 #buat punishment reward data rate dan power
         self.gf = 2 #buat growth factor
         self.efsilon=10e-6 # tolerance convergence
+        self.x=1
     def sample_valid_power(self):
         rand = np.random.rand(self.nodes)
         rand /= np.sum(rand)
@@ -48,7 +49,6 @@ class GameState:
         for i in range(len(power)):
             if power[i]<10e-6:
                 power[i]=10e-6
-        x=1
         intr=self.interferensi(power,channel_gain)
         convergence=True
         hasil=True
@@ -69,9 +69,9 @@ class GameState:
                 convergence = True
                 hasil = convergence and hasil
         
-        if hasil==False and episode > x :
+        if hasil==False and episode > self.x :
             self.lamda= self.lamda * self.gf
-            x+=1
+            self.x+=1
         for i in range(self.nodes):
             data_rate_constraint.append(self.lamda*self.step_function(0.51-data_rate[i]))
         EE=self.hitung_efisiensi_energi(power,data_rate)
