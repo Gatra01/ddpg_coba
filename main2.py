@@ -119,6 +119,7 @@ def main():
                 next_loc= env.generate_positions() #lokasi untuk s_t
                 next_channel_gain=env.generate_channel_gain(next_loc) #channel gain untuk s_t
                 s_next, r, dw, tr, info,EE,rate= env.step(a,channel_gain,next_channel_gain,episode) # dw: dead&win; tr: truncated
+                
                 writer.add_scalar("Energi Efisiensi", EE, total_steps)
                 writer.add_scalar("Reward iterasi", r, total_steps)
                 writer.add_scalar("data rate 1", rate[0], total_steps)
@@ -130,6 +131,7 @@ def main():
                 channel_gain=env.generate_channel_gain(loc)
                 if langkah == iterasi :
                     tr= True
+                    print(a,r)
                 done = (dw or tr)
 
                 agent.replay_buffer.add(np.array(s, dtype=np.float32), a, r, np.array(s_next, dtype=np.float32), dw)
