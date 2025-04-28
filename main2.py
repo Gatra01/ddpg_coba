@@ -131,7 +131,7 @@ def main():
                 channel_gain=env.generate_channel_gain(loc)
                 if langkah == iterasi :
                     tr= True
-                    print(a,r)
+                    print(f"action: {a}, reward: {r}, punishment : {env.lamda}")
                 done = (dw or tr)
 
                 agent.replay_buffer.add(np.array(s, dtype=np.float32), a, r, np.array(s_next, dtype=np.float32), dw)
