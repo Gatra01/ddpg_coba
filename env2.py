@@ -46,9 +46,9 @@ class GameState:
             x=1
         return x
     def step(self,power,channel_gain,next_channel_gain,episode):
-        for i in range(len(power)):
-            if power[i]<10e-6:
-                power[i]=10e-6
+        #for i in range(len(power)):
+        #    if power[i]<10e-6:
+        #        power[i]=10e-6
         intr=self.interferensi(power,channel_gain)
         convergence=True
         hasil=True
