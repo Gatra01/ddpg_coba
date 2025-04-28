@@ -80,10 +80,11 @@ class GameState:
         p_norm=self.norm(power)
         result_array = np.concatenate((np.array(gain_norm).flatten(), np.array(intr_norm).flatten(),np.array(p_norm)))
         reward = float(EE -  self.lamda*self.step_function(total_daya-self.p_max)-np.sum(data_rate_constraint))
-        if reward > 0:
-            reward = np.log2(reward)
-        else:
-            reward = -10
+        
+        #if reward > 0:
+        #    reward = np.log2(reward)
+        #else:
+        #    reward = -10
         print(self.lamda, episode)
         return result_array,reward, False,False,{},EE,data_rate
 
