@@ -14,7 +14,7 @@ class GameState:
         self.action_space = nodes
         self.p = np.random.uniform(0, self.p_max, size=self.nodes)
         self.lamda=150 #buat punishment reward data rate dan power
-        self.gf = 2 #buat growth factor
+        self.gf = 1.01 #buat growth factor
         self.efsilon=10e-6 # tolerance convergence
         self.x=1
     def sample_valid_power(self):
