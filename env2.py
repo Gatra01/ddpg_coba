@@ -13,7 +13,7 @@ class GameState:
         self.observation_space = 2*nodes * nodes + nodes  # interferensi, channel gain, power
         self.action_space = nodes
         self.p = np.random.uniform(0, self.p_max, size=self.nodes)
-        self.lamda=0.1 #buat punishment reward data rate dan power
+        self.lamda=0.5 #buat punishment reward data rate dan power
         self.gf = 2 #buat growth factor
         self.efsilon=10e-6 # tolerance convergence
     def sample_valid_power(self):
