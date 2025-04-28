@@ -84,6 +84,7 @@ class GameState:
             reward = np.log2(reward)
         else:
             reward = -10
+        print(self.lamda, episode)
         return result_array,reward, False,False,{},EE,data_rate
 
     def norm(self,x):
