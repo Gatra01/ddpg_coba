@@ -71,7 +71,7 @@ class GameState:
         
         if hasil==False and episode > self.x :
             self.lamda= self.lamda * self.gf
-            self.x+=1
+            self.x=episode
         for i in range(self.nodes):
             data_rate_constraint.append(self.lamda*self.step_function(0.51-data_rate[i]))
         EE=self.hitung_efisiensi_energi(power,data_rate)
