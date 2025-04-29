@@ -8,7 +8,7 @@ import torch.nn as nn
 import os, shutil
 import argparse
 from datetime import datetime
-from utils import str2bool,evaluate_policy
+from utils2 import str2bool,evaluate_policy
 
 '''Hyperparameter Setting'''
 parser = argparse.ArgumentParser()
