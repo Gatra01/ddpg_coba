@@ -64,7 +64,7 @@ class GameState:
                 convergence = True
                 hasil = convergence and hasil
         
-        if hasil==False and episode > x :
+        if hasil==False and episode > self.x :
             self.lamda= self.lamda * self.gf
             self.x=episode
         for i in range(self.nodes):
