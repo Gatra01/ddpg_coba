@@ -16,6 +16,7 @@ class GameState:
         self.lamda=1
         self.gf=2
         self.efsilon=10e-6
+        self.x=1
     def sample_valid_power(self):
         rand = np.random.rand(self.nodes)
         rand /= np.sum(rand)
@@ -45,7 +46,6 @@ class GameState:
             x=1
         return x
     def step(self,power,channel_gain,next_channel_gain,episode):
-        x=1
         intr=self.interferensi(power,channel_gain)
         convergence=True
         hasil=True
@@ -66,7 +66,7 @@ class GameState:
         
         if hasil==False and episode > x :
             self.lamda= self.lamda * self.gf
-            x+=1
+            self.x=episode
         for i in range(self.nodes):
             data_rate_constraint.append(self.lamda*max(0.51-data_rate[i],0))
         EE=self.hitung_efisiensi_energi(power,data_rate)
