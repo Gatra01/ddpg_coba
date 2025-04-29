@@ -3,7 +3,7 @@ import torch.nn as nn
 import argparse
 import torch
 import numpy as np
-from env2 import GameState
+from env3 import GameState
 
 class Actor(nn.Module):
     def __init__(self, state_dim, action_dim, net_width, maxaction):
